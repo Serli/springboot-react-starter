@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="https://www.thymeleaf.org" lang="fr">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Springboot + React starter</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+        <meta name="description" content="Springboot + React starter">
+
+        <link rel="stylesheet" type="text/css" href="/dist/css/main.min.css">
+    </head>
+    <body>
+        <div class="main">
+            <header th:replace="~{fragments/header :: header}"></header>
+            <div layout:fragment="content"></div>
+            <footer th:replace="~{fragments/footer :: footer}"></footer>
+        </div>
+
+        <th:block layout:fragment="moreScripts" />
+    </body>
+</html>
