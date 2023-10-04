@@ -3,7 +3,12 @@ import React from 'react';
 export function HelloWorld(props) {
     return (
         <div className="hello">
-            Hello {props.name} !
+            <div className="title">
+                Hello {props.name} !
+            </div>
+            <div className="content">
+                Un exemple de composant React.
+            </div>
         </div>
     )
 }

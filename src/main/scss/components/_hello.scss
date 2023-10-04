@@ -1,5 +1,10 @@
 .hello {
-  font-size: 2em;
-  font-weight: bold;
-  color: darkblue;
+  border: 1px dashed gray;
+  .title {
+    font-size: 2em;
+    font-weight: bold;
+  }
+  .content {
+    color: gray;
+  }
 }

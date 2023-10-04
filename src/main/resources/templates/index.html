@@ -3,10 +3,7 @@
 <head>
 </head>
 <body>
-<main layout:fragment="content">
-    <h1>Springboot + React starter</h1>
-
-    <a class="btn btn-primary" href="https://www.serli.com" target="_blank">Go to Serli.com</a>
+<main layout:fragment="content" th:utext="${documentationAsHtml}">
 </main>
 </body>
 </html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/main}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="https://www.thymeleaf.org"  lang="fr">
+<head>
+    <title>Spring Boot + React starter - Thème Bootstrap</title>
+    <meta name="description" content="Spring Boot + React starter - Thème Bootstrap">
+</head>
+<body>
+<main layout:fragment="content">
+    <h1>Thème Bootstrap</h1>
+    <p>
+        Le thème Bootstrap personnalisé permet d'avoir des composants aux couleurs de Serli :
+        <span class="badge bg-primary">Primary color: #1768b1</span>
+        <span class="badge bg-secondary">Secondary color: #3db8d8</span>
+        <br/>
+        Voici quelques exemples :
+    </p>
+
+    <h2>Alerts</h2>
+    <p>
+        <button type="button" class="btn btn-primary">Primary</button>
+        <button type="button" class="btn btn-secondary">Secondary</button>
+    </p>
+
+    <h2>Buttons</h2>
+    <p>
+        <div class="alert alert-primary" role="alert">
+            A simple primary alert—check it out!
+        </div>
+        <div class="alert alert-secondary" role="alert">
+            A simple secondary alert—check it out!
+        </div>
+    </p>
+
+    <h2>Badges</h2>
+    <p>
+        <span class="badge text-bg-primary">Primary</span>
+        <span class="badge text-bg-secondary">Secondary</span>
+    </p>
+
+    <h2>Spinners</h2>
+    <p>
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="spinner-border text-secondary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </p>
+
+</main>
+</body>
+</html>
