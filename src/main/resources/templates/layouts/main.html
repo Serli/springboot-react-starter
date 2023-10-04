@@ -1,19 +1,22 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="https://www.thymeleaf.org" lang="fr">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="https://www.thymeleaf.org" lang="fr" class="h-100">
     <head>
         <meta charset="UTF-8"/>
         <title>Springboot + React starter</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="Springboot + React starter">
 
+        <link rel="stylesheet" type="text/css" href="/dist/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="/dist/css/main.min.css">
+
+        <link rel="icon" type="image/png" href="/images/shortcut-icon.png">
     </head>
-    <body>
-        <div class="main">
-            <header th:replace="~{fragments/header :: header}"></header>
-            <div layout:fragment="content"></div>
-            <footer th:replace="~{fragments/footer :: footer}"></footer>
-        </div>
+    <body class="d-flex flex-column h-100">
+        <header th:replace="~{fragments/header :: header}"></header>
+        <main class="container" layout:fragment="content"></main>
+        <footer th:replace="~{fragments/footer :: footer}"></footer>
+
+        <script src="/js/bootstrap.bundle.min.js"></script>
 
         <th:block layout:fragment="moreScripts" />
     </body>

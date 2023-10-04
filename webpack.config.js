@@ -6,7 +6,8 @@ const glob = require('glob-all');
 module.exports = {
     entry: {
         HelloWorldWidget: './src/main/js/HelloWorldWidget.js',
-        MainCSS: './src/main/scss/main.scss'
+        BootstrapCSS: './src/main/scss/bootstrap/bootstrap.scss',
+        MainCSS: './src/main/scss/main.scss',
     },
     devtool: 'source-map',
     cache: true,
@@ -77,11 +78,11 @@ module.exports = {
     },
     plugins: [
         new MiniCssExtractPlugin({
-            filename: "dist/css/main.min.css"
+            filename: ({chunk: {name}}) => 'dist/css/' + name.replace(/CSS$/, '').toLowerCase()+ '.min.css'
         }),
-        new PurgeCSSPlugin({
-            paths: () => glob.sync(['./src/main/resources/templates/**/*.html', './src/main/js/**/*.js']),
-            safelist: []
-        })
+//        new PurgeCSSPlugin({
+//            paths: () => glob.sync(['./src/main/resources/templates/**/*.html', './src/main/js/**/*.js']),
+//            safelist: []
+//        })
     ]
 };
