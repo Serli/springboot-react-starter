@@ -1,5 +1,13 @@
 @import "components/hello";
 
+pre {
+  padding: 15px;
+  border: 1px dotted darkgrey;
+  background-color: #212121;
+  color: white;
+  font-weight: 500;
+}
+
 .debug {
   outline: 1px solid red;
 }
