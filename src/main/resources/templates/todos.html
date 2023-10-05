@@ -6,11 +6,56 @@
 </head>
 <body>
 <main layout:fragment="content">
-    <h1>Votre liste de TODOs</h1>
+    <h1>Un exemple de CRUD</h1>
 
-    <ul th:each="todo: ${todos}">
-        <li th:text="${todo.content}"></li>
-    </ul>
+    <p>Cette partie propose un exemple simple de CRUD pour la gestion d'une liste de TODOs.</p>
+
+    <h2>Votre liste de TODOs</h2>
+
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <i class="fa-solid fa-plus"></i> Ajouter un TODO
+    </button>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Ajouter un TODO</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="post" action="/todos/_create">
+                    <div class="modal-body">
+                        <input type="text" class="form-control" placeholder="Que devez vous faire ?" name="content">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Ajouter</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Contenu</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="todo: ${todos}">
+            <td th:text="${todo.id}"></td>
+            <td th:text="${todo.content}"></td>
+            <td>
+                <form method="post" action="/todos/_delete">
+                    <input type="hidden" name="id" th:value="${todo.id}">
+                    <button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </main>
 </body>
 </html>
