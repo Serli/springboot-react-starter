@@ -91,7 +91,7 @@ Une fois construit par Webpack, le composant peut être importé dans une page H
 
 À noter : 
 * Afin de pouvoir utiliser des variables du `Model` Spring Boot dans la partie `<script>` du template Thymleaf, il ne faut pas oublier l'attribut `th:inline="javascript"`
-* La syntaxe pour utiliser les variables dans la partie `<script>` est un peu particulière. Par exemple ici : `[[${name}]]`. Voici un article plutôt bien fait qui détaille les éléments de syntaxe (https://attacomsian.com/blog/thymeleaf-set-javascript-variable)[https://attacomsian.com/blog/thymeleaf-set-javascript-variable]
+* La syntaxe pour utiliser les variables dans la partie `<script>` est un peu particulière. Par exemple ici : `[[${name}]]`. Voici un article plutôt bien fait qui détaille les éléments de syntaxe : [https://attacomsian.com/blog/thymeleaf-set-javascript-variable](https://attacomsian.com/blog/thymeleaf-set-javascript-variable)
 
 ### La partie CSS
 
