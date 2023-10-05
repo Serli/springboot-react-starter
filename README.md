@@ -109,3 +109,40 @@ Cela permet de définir un thème personnalisé pour Serli, en redéfinissant ce
 $primary:       #1768b1 !default;
 $secondary:     #3db8d8 !default;
 ```
+
+## Optimisations
+
+### PurgeCSSPlugin
+
+Le plugin Webpack `PurgeCSSPlugin` permet de conserver uniquement le CSS réellement utilisé dans l'application. Il peut être ajouté dans la configuration Webpack : 
+
+```javascript
+    plugins: [
+        // ...
+        new PurgeCSSPlugin({
+            paths: () => glob.sync(['./src/main/resources/templates/**/*.html', './src/main/js/**/*.js']),
+            safelist: []
+        })
+    ]
+```
+
+Attention, cela peut poser problème quand des classes CSS sont ajoutées dynamiquement en Javascript. 
+Pour résoudre ce soucis, il est possible de définir une `safelist`. Par exemple, pour conserver les classes ajoutées par la librairie [Leaflet](https://leafletjs.com/), on peut définir la `safelist` suivante : `safelist: [/^leaflet-*/]`
+
+### Fontawesome
+
+Actuellement, l'ensemble des icones Fontawesome sont chargées : 
+
+```html
+<link rel="stylesheet" href="/fontawesome/css/all.min.css">
+```
+
+Or il est possible de ne charger que les catégories d'icones utilisées réellement dans l'application. Par exemple `solid` et `brands` : 
+
+```html
+<link rel="stylesheet" href="/fontawesome/css/fontawesome.min.css">
+<link rel="stylesheet" href="/fontawesome/css/solid.min.css">
+<link rel="stylesheet" href="/fontawesome/css/brands.min.css">
+```
+
+Pour en savoir plus : [https://fontawesome.com/docs/web/setup/host-yourself/webfonts](https://fontawesome.com/docs/web/setup/host-yourself/webfonts#reference-font-awesome-in-your-project)
