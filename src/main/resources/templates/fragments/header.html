@@ -8,18 +8,18 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a th:class="${requestURI == '/' ? 'nav-link active' : 'nav-link'}" href="/">Accueil</a>
+                        <a th:class="${requestURI == '/' ? 'nav-link active' : 'nav-link'}" href="/"><i class="fa-solid fa-house"></i> Accueil</a>
                     </li>
                     <li class="nav-item">
-                        <a th:class="${requestURI == '/react-example' ? 'nav-link active' : 'nav-link'}" href="/react-example">Exemple React</a>
+                        <a th:class="${requestURI == '/react-example' ? 'nav-link active' : 'nav-link'}" href="/react-example"><i class="fa-brands fa-react"></i> Exemple React</a>
                     </li>
                     <li class="nav-item">
-                        <a th:class="${requestURI == '/bootstrap-theme' ? 'nav-link active' : 'nav-link'}" href="/bootstrap-theme">Thème Bootstrap</a>
+                        <a th:class="${requestURI == '/bootstrap-theme' ? 'nav-link active' : 'nav-link'}" href="/bootstrap-theme"><i class="fa-brands fa-bootstrap"></i> Thème Bootstrap</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item d-flex">
-                        <a class="nav-link" href="https://github.com/Serli/springboot-react-starter" target="_blank">Github</a>
+                        <a class="nav-link" href="https://github.com/Serli/springboot-react-starter" target="_blank"><i class="fa-brands fa-github"></i> Github</a>
                     </li>
                 </ul>
             </div>
