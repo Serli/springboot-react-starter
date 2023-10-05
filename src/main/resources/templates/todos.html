@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/main}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="https://www.thymeleaf.org"  lang="fr">
+<head>
+    <title>Spring Boot + React starter - Accès à une base de données</title>
+    <meta name="description" content="Spring Boot + React starter - Accès à une base de données">
+</head>
+<body>
+<main layout:fragment="content">
+    <h1>Votre liste de TODOs</h1>
+
+    <ul th:each="todo: ${todos}">
+        <li th:text="${todo.content}"></li>
+    </ul>
+</main>
+</body>
+</html>

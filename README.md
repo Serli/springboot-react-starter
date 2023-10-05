@@ -27,7 +27,7 @@ Lancez la commande `./mvnw spring-boot:run` puis rendez-vous sur l'URL [http://l
 
 La partie front est construite automatiquement lors du lancement de l'application grâce au plugin `frontend-maven-plugin`.
 
-Les commandes exécutées par le `frontend-maven-plugin` sont les suivantes  (voir la configuration dans le `pom.xml` pour tous les détails) : 
+Les commandes exécutées par le `frontend-maven-plugin` sont les suivantes (voir la configuration dans le `pom.xml` pour tous les détails) : 
 1. Installation de Node et Yarn
 2. Installation des dépendances : `yarn install`
 3. Nettoyage des builds précédents : `yarn clean`
@@ -146,3 +146,10 @@ Or il est possible de ne charger que les catégories d'icones utilisées réelle
 ```
 
 Pour en savoir plus : [https://fontawesome.com/docs/web/setup/host-yourself/webfonts](https://fontawesome.com/docs/web/setup/host-yourself/webfonts#reference-font-awesome-in-your-project)
+
+## Base de données
+
+```sql
+CREATE DATABASE todos_db;
+CREATE USER todos_db_user SUPERUSER ENCRYPTED PASSWORD 'todos_db_password';
+```

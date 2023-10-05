@@ -1,9 +1,7 @@
 package com.serli.starter.controllers;
 
+import com.serli.starter.services.MarkdownService;
 import jakarta.servlet.http.HttpServletRequest;
-import org.commonmark.node.Node;
-import org.commonmark.parser.Parser;
-import org.commonmark.renderer.html.HtmlRenderer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,15 +14,11 @@ import java.io.IOException;
 @Controller
 public class HomeController {
 
-    // Markdown conversion utils
-    private final Parser parser;
-    private final HtmlRenderer renderer;
+    private final MarkdownService markdownService;
 
     @Autowired
-    public HomeController() {
-        // Create markdown conversion stuff
-        this.parser = Parser.builder().build();
-        this.renderer = HtmlRenderer.builder().build();
+    public HomeController(MarkdownService markdownService) {
+        this.markdownService = markdownService;
     }
 
     @ModelAttribute("requestURI")
@@ -35,8 +29,7 @@ public class HomeController {
     @GetMapping("/")
     public String index(Model model) {
         try {
-            Node node = parser.parseReader(new FileReader("README.md"));
-            String documentationAsHtml = renderer.render(node);
+            String documentationAsHtml = markdownService.convertToHtml(new FileReader("README.md"));
             model.addAttribute("documentationAsHtml", documentationAsHtml);
         } catch (IOException e) {
             e.printStackTrace();
