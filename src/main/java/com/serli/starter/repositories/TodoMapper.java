@@ -16,7 +16,10 @@ public class TodoMapper implements RowMapper<Todo> {
     public Todo mapRow(ResultSet rs, int rowNum) throws SQLException {
         return new Todo(
                 UUID.fromString(rs.getString("id")),
-                rs.getString("content")
+                rs.getString("content"),
+                rs.getString("title"),
+                rs.getInt("status"),
+                rs.getTimestamp("created_at")
         );
     }
 }

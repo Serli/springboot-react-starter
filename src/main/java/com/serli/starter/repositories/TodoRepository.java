@@ -24,7 +24,7 @@ public class TodoRepository {
 
     public List<Todo> findAll() {
         String sqlQuery = """
-                SELECT t.id, t.content
+                SELECT t.id, t.content, t.title, t.status, t.created_at
                 FROM Todo t
                 """;
         return namedParameterJdbcTemplate.query(sqlQuery, todoMapper);
@@ -32,7 +32,7 @@ public class TodoRepository {
 
     public Optional<Todo> findById(UUID id) {
         String sqlQuery = """
-                SELECT t.id, t.content
+                SELECT t.id, t.content, t.title, t.status, t.created_at
                 FROM Todo t
                 WHERE t.id =:id;
                 """;
@@ -40,14 +40,16 @@ public class TodoRepository {
         return namedParameterJdbcTemplate.query(sqlQuery, param, todoMapper).stream().findFirst();
     }
 
-    public UUID create(String content) {
+    public UUID create(String title, String content, Integer status) {
         String sqlQuery = """
-                INSERT INTO Todo (content)
-                VALUES(:content)
+                INSERT INTO Todo (title, content, status)
+                VALUES(:title, :content, :status)
                 RETURNING id;
                 """;
 
-        MapSqlParameterSource param = new MapSqlParameterSource().addValue("content", content);
+        MapSqlParameterSource param = new MapSqlParameterSource().addValue("content", content)
+                .addValue("title", title)
+                .addValue("status", status);
         return namedParameterJdbcTemplate.queryForObject(sqlQuery, param, UUID.class);
     }
 

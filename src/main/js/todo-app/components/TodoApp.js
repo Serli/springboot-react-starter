@@ -2,11 +2,13 @@ import React, {useEffect, useState} from 'react';
 
 import TaskList from "./todo-list/TodoList.jsx";
 import TodoForm from "./todo-form/TodoForm.jsx";
+import TodoFilter from "./todo-filter/TodoFilter.jsx";
 
 import "./todoApp.scss";
 
 export function TodoApp(props) {
     const [todos, setTodos] = useState([]);
+    const [filter, setFilter] = useState({status:[0, 1,2], dateDebut:undefined, dateFin:undefined});
 
     const loadTodos = () => {
         fetch("/api/v1/todos")
@@ -15,36 +17,58 @@ export function TodoApp(props) {
             .catch(console.error)
     }
 
-    useEffect(loadTodos, [])
+    const filterChanged = (filter)=>{
+        console.log("setting filters", filter)
+        setFilter(filter);
+    }
+
+
+    useEffect(loadTodos, []);
 
     const addTodos = (todo) => {
         fetch("/api/v1/todos", {
             method: "POST",
-            headers:{
-                "Content-type":"application/json"
+            headers: {
+                "Content-type": "application/json"
             },
             body: JSON.stringify({
-                content: todo.description
+                content: todo.description,
+                title: todo.label,
+                status: 1
             })
         }).then(loadTodos)
     }
 
+    const todosToShow = todos.filter(todo=>{
+        let inStatus = filter.status.indexOf(todo.status) >= 0;
+        let afterDateDebut = !filter.dateDebut || todo.createdAt >= filter.dateDebut;
+        let beforeDateFin = !filter.dateFin || todo.createdAt <= filter.dateFin;
+        return inStatus && afterDateDebut && beforeDateFin
+    })
+
     return (
         <div className="todos-container">
-            <div id="todo-form">
+            <div id="todo-form" className="area">
                 <fieldset>
                     <legend>Nouvelle Tâche</legend>
                     <TodoForm addCallback={addTodos}></TodoForm>
                 </fieldset>
             </div>
-            <div id="todo-filter">
-
+            <div id="todo-filter" className="area">
+                <fieldset>
+                    <legend>Filtres</legend>
+                    <TodoFilter filterCallback={filterChanged}></TodoFilter>
+                </fieldset>
             </div>
-            <div id="todo-chart"></div>
-            <div id="todo-list">
+            <div id="todo-chart" className="area">
+                <fieldset>
+                    <legend>Statistiques</legend>
+                </fieldset>
+            </div>
+            <div id="todo-list" className="area">
                 <fieldset>
                     <legend>Liste des tâches</legend>
-                    <TaskList todos={todos}/>
+                    <TaskList todos={todosToShow}/>
                 </fieldset>
             </div>
         </div>

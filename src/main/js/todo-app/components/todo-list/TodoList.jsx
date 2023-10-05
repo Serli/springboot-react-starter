@@ -5,7 +5,7 @@ export default ({todos})=>{
 
 
     return (
-        <div class="d-flex flex-column">
+        <div class="d-flex todo-list">
             {
                 todos && todos.map(todo=>{
                     return <Todo todo={todo} />

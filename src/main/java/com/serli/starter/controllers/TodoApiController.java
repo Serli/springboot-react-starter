@@ -71,13 +71,15 @@ public class TodoApiController {
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode jsonNode = objectMapper.readTree(body);
             JsonNode contentNode = jsonNode.get("content");
+            JsonNode titleNode = jsonNode.get("title");
+            JsonNode statusNode = jsonNode.get("status");
             if (contentNode == null || contentNode.isNull()) {
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 return """
                         {"message": "Bad request"}
                         """;
             }
-            UUID uuid = todoRepository.create(contentNode.asText());
+            UUID uuid = todoRepository.create(titleNode.asText(),contentNode.asText(), statusNode.asInt());
             response.setStatus(HttpServletResponse.SC_CREATED);
             return "{\"id\": \"" + uuid.toString() + "\"}";
         } catch (JsonProcessingException e) {

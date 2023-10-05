@@ -16,10 +16,12 @@ export default ({addCallback})=>{
         <div className="d-flex flex-column todo-form">
             <input id="label" placeholder="Titre"
                    className="form-control mb-2"
+                   maxLength={100}
                    value={label} onChange={(e)=>setLabel(e.currentTarget.value)}/>
                 <textarea placeholder="Description"
                           className="form-control mb-2"
                           value={description}
+                          maxLength={100}
                           onChange={(e)=>setDescription(e.currentTarget.value)}></textarea>
             <button type="button" className="btn btn-success" onClick={createTodo}>Créer</button>
         </div>

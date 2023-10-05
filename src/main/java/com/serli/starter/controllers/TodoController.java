@@ -38,7 +38,7 @@ public class TodoController {
 
     @PostMapping("/todos/_create")
     public String create(@RequestParam String content, Model model) {
-        todoRepository.create(content);
+        todoRepository.create("", content, 1);
         return "redirect:/todos";
     }
 
