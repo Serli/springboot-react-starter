@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/main}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="https://www.thymeleaf.org"  lang="fr">
+<head>
+    <title>Spring Boot + React starter - Exemple React</title>
+    <meta name="description" content="Spring Boot + React starter - Exemple de composant React">
+    <link rel="stylesheet" href="/dist/css/todoappwidget.min.css"/>
+</head>
+<body>
+<main layout:fragment="content">
+    <div id="todo-app-container"></div>
+</main>
+<th:block layout:fragment="moreScripts">
+    <script type="text/javascript" th:inline="javascript">
+        function mountWidget() {
+            TodoAppWidget.mount({
+                containerId: 'todo-app-container',
+                name: [[${name}]]
+            })
+        }
+    </script>
+    <script src="/dist/js/TodoAppWidget.js" onload="mountWidget()"></script>
+</th:block>
+</body>
+</html>

@@ -1,0 +1,28 @@
+.todos-container {
+  width:calc(100vw - 50px);
+  margin-left:20px;
+  display: grid;
+  grid-template-areas:
+          "todo-form todo-filter"
+          "todo-form todo-list"
+          "todo-chart todo-list"
+          "todo-chart todo-list";
+  grid-template-columns: 25% 75%;
+  grid-gap: 20px;
+
+  #todo-form {
+    grid-area: todo-form;
+  }
+
+  #todo-list {
+    grid-area: todo-list;
+  }
+
+  #todo-filter{
+    grid-area:todo-filter;
+  }
+
+  #todo-chart{
+    grid-area: todo-chart;
+  }
+}

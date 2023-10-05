@@ -48,4 +48,10 @@ public class TodoController {
         return "redirect:/todos";
     }
 
+    @GetMapping("/react-todos")
+    public String reactExample(Model model) {
+        model.addAttribute("name", "world");
+        return "react-todos";
+    }
+
 }

@@ -6,6 +6,7 @@ const glob = require('glob-all');
 module.exports = {
     entry: {
         HelloWorldWidget: './src/main/js/HelloWorldWidget.js',
+        TodoAppWidget: './src/main/js//todo-app/TodoAppWidget.js',
         BootstrapCSS: './src/main/scss/bootstrap/bootstrap.scss',
         MainCSS: './src/main/scss/main.scss',
     },
@@ -21,7 +22,7 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.js$/,
+                test: /\.(js|jsx)$/,
                 exclude: /(node_modules)/,
                 use: [{
                     loader: 'babel-loader',
