@@ -13,6 +13,8 @@ import java.util.UUID;
 @Repository
 public class TodoRepository {
 
+    private static final int MAX_CONTENT_LENGTH = 100;
+
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     private final TodoMapper todoMapper;
 
@@ -47,7 +49,8 @@ public class TodoRepository {
                 RETURNING id;
                 """;
 
-        MapSqlParameterSource param = new MapSqlParameterSource().addValue("content", content);
+        String sanitizedContent = content.length() > MAX_CONTENT_LENGTH ? content.substring(0, MAX_CONTENT_LENGTH) : content;
+        MapSqlParameterSource param = new MapSqlParameterSource().addValue("content", sanitizedContent);
         return namedParameterJdbcTemplate.queryForObject(sqlQuery, param, UUID.class);
     }
 
