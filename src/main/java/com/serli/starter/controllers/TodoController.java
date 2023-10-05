@@ -4,12 +4,10 @@ import com.serli.starter.models.Todo;
 import com.serli.starter.repositories.TodoRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
@@ -27,6 +25,11 @@ public class TodoController {
     @ModelAttribute("requestURI")
     public String contextPath(final HttpServletRequest request) {
         return request.getRequestURI();
+    }
+
+    @ExceptionHandler({ CannotGetJdbcConnectionException.class })
+    public String handleException() {
+        return "database-error";
     }
 
     @GetMapping("/todos")
