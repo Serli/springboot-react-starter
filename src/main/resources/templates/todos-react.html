@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/main}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="https://www.thymeleaf.org"  lang="fr">
+<head>
+    <title>Spring Boot + React starter - Exemple React</title>
+    <meta name="description" content="Spring Boot + React starter - Exemple de composant React">
+</head>
+<body>
+<main layout:fragment="content">
+    <h1>Exemple de composant React</h1>
+    <p>Voici un exemple de composant React monté dans la page HTML :</p>
+    <div id="todos-container"></div>
+</main>
+<th:block layout:fragment="moreScripts">
+    <script type="text/javascript" th:inline="javascript">
+        function mountWidget() {
+            TodosWidget.mount({
+                containerId: 'todos-container'
+            })
+        }
+    </script>
+    <script src="/dist/js/TodosWidget.js" onload="mountWidget()"></script>
+</th:block>
+</body>
+</html>

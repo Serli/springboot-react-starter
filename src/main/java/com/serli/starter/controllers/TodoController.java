@@ -51,4 +51,8 @@ public class TodoController {
         return "redirect:/todos";
     }
 
+    @GetMapping("/todos-react")
+    public String reactExample(Model model) {
+        return "todos-react";
+    }
 }

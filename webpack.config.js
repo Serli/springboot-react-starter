@@ -6,6 +6,7 @@ const glob = require('glob-all');
 module.exports = {
     entry: {
         HelloWorldWidget: './src/main/js/HelloWorldWidget.js',
+        TodosWidget: './src/main/js/TodosWidget.js',
         BootstrapCSS: './src/main/scss/bootstrap/bootstrap.scss',
         MainCSS: './src/main/scss/main.scss',
     },
