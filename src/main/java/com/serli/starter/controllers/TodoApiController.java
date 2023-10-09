@@ -1,9 +1,8 @@
 package com.serli.starter.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.serli.starter.models.NewTodo;
 import com.serli.starter.models.Todo;
 import com.serli.starter.repositories.TodoRepository;
 import jakarta.servlet.http.HttpServletRequest;
@@ -67,25 +66,16 @@ public class TodoApiController {
     @PostMapping(path = "/api/v1/todos", consumes = "application/json; charset=UTF-8", produces = "application/json; charset=UTF-8")
     @ResponseBody
     public String create(@RequestBody String body, HttpServletResponse response) {
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            JsonNode jsonNode = objectMapper.readTree(body);
-            JsonNode contentNode = jsonNode.get("content");
-            if (contentNode == null || contentNode.isNull()) {
-                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                return """
-                        {"message": "Bad request"}
-                        """;
-            }
-            UUID uuid = todoRepository.create(contentNode.asText());
-            response.setStatus(HttpServletResponse.SC_CREATED);
-            return "{\"id\": \"" + uuid.toString() + "\"}";
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
+        Optional<NewTodo> newTodoOpt = NewTodo.fromJson(body);
+        if (newTodoOpt.isEmpty()) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             return """
                     {"message": "Bad request"}
                     """;
+        } else {
+            UUID uuid = todoRepository.create(newTodoOpt.get());
+            response.setStatus(HttpServletResponse.SC_CREATED);
+            return "{\"id\": \"" + uuid.toString() + "\"}";
         }
     }
 

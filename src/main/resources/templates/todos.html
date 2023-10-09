@@ -12,20 +12,27 @@
 
     <h2>Votre liste de TODOs</h2>
 
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createTodoModal">
         <i class="fa-solid fa-plus"></i> Ajouter un TODO
     </button>
 
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="createTodoModal" tabindex="-1" aria-labelledby="createTodoModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Ajouter un TODO</h1>
+                    <h1 class="modal-title fs-5" id="createTodoModalLabel">Ajouter un TODO</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form method="post" action="/todos/_create">
                     <div class="modal-body">
-                        <input type="text" class="form-control" placeholder="Que devez vous faire ?" name="content" maxlength="100">
+                        <div class="mb-3">
+                            <label for="title" class="form-label">Titre</label>
+                            <input id="title" type="text" class="form-control" placeholder="Que devez vous faire ?" name="title" maxlength="100">
+                        </div>
+                        <div class="mb-3">
+                            <label for="content" class="form-label">Contenu</label>
+                            <textarea id="content" class="form-control" name="content" rows="3" maxlength="500"></textarea>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">Ajouter</button>
@@ -39,23 +46,49 @@
         <thead>
         <tr>
             <th scope="col">#</th>
+            <th scope="col">Titre</th>
             <th scope="col">Contenu</th>
+            <th scope="col">Statut</th>
             <th scope="col"></th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="todo: ${todos}">
             <td th:text="${todo.id}"></td>
+            <td th:text="${todo.title}"></td>
             <td th:text="${todo.content}"></td>
             <td>
-                <form method="post" action="/todos/_delete">
-                    <input type="hidden" name="id" th:value="${todo.id}">
-                    <button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-                </form>
+                <span class="badge text-bg-dark" th:text="${todo.status}"></span>
+            </td>
+            <td>
+                <div class="d-flex flex-row">
+                    <form th:if="${todo.isNew()}" method="post" action="/todos/_start">
+                        <input type="hidden" name="id" th:value="${todo.id}">
+                        <button type="submit" class="btn btn-success mx-3" title="Démarrer"><i class="fa-solid fa-play"></i> Démarrer</button>
+                    </form>
+                    <form th:if="${todo.isInProgress()}" method="post" action="/todos/_finish">
+                        <input type="hidden" name="id" th:value="${todo.id}">
+                        <button type="submit" class="btn btn-warning mx-3" title="Terminer"><i class="fa-solid fa-stop"></i> Terminer</button>
+                    </form>
+                    <form method="post" action="/todos/_delete">
+                        <input type="hidden" name="id" th:value="${todo.id}">
+                        <button type="submit" class="btn btn-danger" title="Supprimer"><i class="fa-solid fa-trash"></i></button>
+                    </form>
+                </div>
             </td>
         </tr>
         </tbody>
     </table>
 </main>
+<th:block layout:fragment="moreScripts">
+    <script type="text/javascript">
+        const createTodoModal = document.getElementById('createTodoModal');
+        const createTodoModalTitleInput = document.getElementById('title');
+
+        createTodoModal.addEventListener('shown.bs.modal', () => {
+            createTodoModalTitleInput.focus();
+        });
+    </script>
+</th:block>
 </body>
 </html>

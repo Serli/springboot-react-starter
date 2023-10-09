@@ -1,6 +1,8 @@
 package com.serli.starter.controllers;
 
+import com.serli.starter.models.NewTodo;
 import com.serli.starter.models.Todo;
+import com.serli.starter.models.TodoStatus;
 import com.serli.starter.repositories.TodoRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +29,7 @@ public class TodoController {
         return request.getRequestURI();
     }
 
-    @ExceptionHandler({ CannotGetJdbcConnectionException.class })
+    @ExceptionHandler({CannotGetJdbcConnectionException.class})
     public String handleException() {
         return "database-error";
     }
@@ -40,8 +42,20 @@ public class TodoController {
     }
 
     @PostMapping("/todos/_create")
-    public String create(@RequestParam String content, Model model) {
-        todoRepository.create(content);
+    public String create(@RequestParam String title, @RequestParam String content, Model model) {
+        todoRepository.create(new NewTodo(title, content));
+        return "redirect:/todos";
+    }
+
+    @PostMapping("/todos/_start")
+    public String start(@RequestParam String id, Model model) {
+        todoRepository.updateStatus(UUID.fromString(id), TodoStatus.IN_PROGRESS);
+        return "redirect:/todos";
+    }
+
+    @PostMapping("/todos/_finish")
+    public String finish(@RequestParam String id, Model model) {
+        todoRepository.updateStatus(UUID.fromString(id), TodoStatus.DONE);
         return "redirect:/todos";
     }
 
