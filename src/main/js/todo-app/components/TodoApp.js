@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react';
 import TaskList from "./todo-list/TodoList.jsx";
 import TodoForm from "./todo-form/TodoForm.jsx";
 import TodoFilter from "./todo-filter/TodoFilter.jsx";
+import TodoStats from "./todo-stats/TodoStats.jsx";
 
 import "./todoApp.scss";
 
@@ -17,13 +18,17 @@ export function TodoApp(props) {
             .catch(console.error)
     }
 
-    const filterChanged = (filter)=>{
-        console.log("setting filters", filter)
-        setFilter(filter);
+    const filterChanged = (f)=>{
+        console.log("setting filters", f)
+        setFilter({...filter, ...f});
     }
 
 
     useEffect(loadTodos, []);
+
+    useEffect(() => {
+        console.log('useEffect => ', filter);
+    }, [filter])
 
     const addTodos = (todo) => {
         fetch("/api/v1/todos", {
@@ -63,6 +68,7 @@ export function TodoApp(props) {
             <div id="todo-chart" className="area">
                 <fieldset>
                     <legend>Statistiques</legend>
+                    <TodoStats />
                 </fieldset>
             </div>
             <div id="todo-list" className="area">
