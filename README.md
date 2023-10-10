@@ -1,6 +1,10 @@
 # Spring Boot + React starter
 
-Ce projet propose un exemple d'application basée sur le framework Spring Boot et mettant en oeuvre des composants React ainsi qu'un thème Bootstrap.
+Ce projet propose un exemple d'application mettant en oeuvre : 
+* un backend avec le framework Spring Boot,
+* un exemple CRUD accédant à des données dans une base PostgreSQL,
+* des composants React,
+* un thème Bootstrap personnalisé aux couleurs de Serli.
 
 L'objectif principal de ce starter est de mettre en oeuvre la "tuyauterie" permettant de construire l'application en une seule commande de build, qui gère à la fois la partie back (build Maven de l'app Spring Boot) et la partie front (build Webpack pour la partie Javascript et SCSS).
 
@@ -13,6 +17,8 @@ Le projet nécessite les pré-requis suivants :
 * [Node](https://nodejs.org/fr/download) version 18.x
   * pour les utilisateurs de [`nvm`](https://github.com/nvm-sh/nvm), la version de Node est fixée dans le fichier `.nvmrc`
 * [Yarn](https://yarnpkg.com/) version 1.22.x
+* [PostgreSQL](https://www.postgresql.org/) version 15.x
+  * l'application démarre quand même sans base de données, mais une installation locale de PostgreSQL est nécessaire pour faire fonctionner la partie CRUD. 
 
 ## Architecure du code
 
@@ -110,9 +116,9 @@ $primary:       #1768b1 !default;
 $secondary:     #3db8d8 !default;
 ```
 
-## Optimisations
+### Optimisations
 
-### PurgeCSSPlugin
+#### PurgeCSSPlugin
 
 Le plugin Webpack `PurgeCSSPlugin` permet de conserver uniquement le CSS réellement utilisé dans l'application. Il peut être ajouté dans la configuration Webpack : 
 
@@ -129,7 +135,7 @@ Le plugin Webpack `PurgeCSSPlugin` permet de conserver uniquement le CSS réelle
 Attention, cela peut poser problème quand des classes CSS sont ajoutées dynamiquement en Javascript. 
 Pour résoudre ce soucis, il est possible de définir une `safelist`. Par exemple, pour conserver les classes ajoutées par la librairie [Leaflet](https://leafletjs.com/), on peut définir la `safelist` suivante : `safelist: [/^leaflet-*/]`
 
-### Fontawesome
+#### Fontawesome
 
 Actuellement, l'ensemble des icones Fontawesome sont chargées : 
 
@@ -149,7 +155,17 @@ Pour en savoir plus : [https://fontawesome.com/docs/web/setup/host-yourself/webf
 
 ## Base de données
 
+### Création de la base
+
+Pour faire fonctionner la partie CRUD de l'application, vous devez créer une base locale avec la configuration suivante : 
+
 ```sql
 CREATE DATABASE todos_db;
 CREATE USER todos_db_user SUPERUSER ENCRYPTED PASSWORD 'todos_db_password';
 ```
+
+Ensuite, il est nécessaire de jouer le script SQL suivant afin de créer les structures de données nécessaires (types, tables, fonctions et triggers) : `src/main/resources/database/todos-up.sql`.
+
+Si vous souhaitez ré-initialiser la base de données, il est possible de jouer le script SQL `src/main/resources/database/todos-down.sql`.
+
+La partie CRUD de l'application est disponible à cette URL : [http://localhost:8080/todos](http://localhost:8080/todos)
