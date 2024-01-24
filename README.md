@@ -14,9 +14,9 @@ Le projet nécessite les pré-requis suivants :
 
 * [Java](https://openjdk.org/projects/jdk/17/) version 17.x
   * pour les utilisateurs de [`jenv`](https://www.jenv.be/), la version de Java est fixée dans le fichier `.java-version`
-* [Node](https://nodejs.org/fr/download) version 18.x
+* [Node](https://nodejs.org/fr/download) version 20.x
   * pour les utilisateurs de [`nvm`](https://github.com/nvm-sh/nvm), la version de Node est fixée dans le fichier `.nvmrc`
-* [Yarn](https://yarnpkg.com/) version 1.22.x
+* [NPM](https://docs.npmjs.com/) version 10.3.x
 * [PostgreSQL](https://www.postgresql.org/) version 15.x
   * l'application démarre quand même sans base de données, mais une installation locale de PostgreSQL est nécessaire pour faire fonctionner la partie CRUD. 
 
@@ -34,9 +34,9 @@ Lancez la commande `./mvnw spring-boot:run` puis rendez-vous sur l'URL [http://l
 La partie front est construite automatiquement lors du lancement de l'application grâce au plugin `frontend-maven-plugin`.
 
 Les commandes exécutées par le `frontend-maven-plugin` sont les suivantes (voir la configuration dans le `pom.xml` pour tous les détails) : 
-1. Installation de Node et Yarn
-2. Installation des dépendances : `yarn install`
-3. Nettoyage des builds précédents : `yarn clean`
+1. Installation de Node et NPM
+2. Installation des dépendances : `npm install`
+3. Nettoyage des builds précédents : `npm run clean`
 4. Build Webpack : `webpack`
 
 ## Le build du Front
@@ -47,7 +47,7 @@ Le code des composants React se trouve dans le dossier `src/main/js`.
 
 Les composants sont construits avec Webpack. La configuration se trouve dans le fichier `webpack.config.js` à la racine du projet.
 
-Afin de lancer le build de la partie React indépendamment du run Spring Boot, lancez la commande `yarn watch` (après avoir lancé un `yarn install` si nécessaire).
+Afin de lancer le build de la partie React indépendamment du run Spring Boot, lancez la commande `npm run watch` (après avoir lancé un `npm install` si nécessaire).
 
 #### Exemple du composant `HelloWorldWidget`
 
@@ -103,7 +103,7 @@ Une fois construit par Webpack, le composant peut être importé dans une page H
 
 Un préprocesseur SCSS est configuré dans le projet. Le code SCSS se trouve dans le dossier `src/main/scss`.
 
-Comme pour les composants React, les fichiers CSS minifiés sont construits avec Webpack. La commande `yarn watch` permet donc de lancer également le build de la partie SCSS.
+Comme pour les composants React, les fichiers CSS minifiés sont construits avec Webpack. La commande `npm run watch` permet donc de lancer également le build de la partie SCSS.
 
 #### Thème bootstrap
 
