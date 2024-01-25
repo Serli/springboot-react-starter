@@ -79,7 +79,7 @@ public class TodoApiController {
                         {"message": "Not found"}
                         """;
             } else {
-                todoRepository.updateStatus(todoOpt.get().status);
+                todoRepository.updateStatus(todoOpt.get().id, todoOpt.get().status);
                 return todoOpt.get().toJson().toString();
             }
         } catch (IllegalArgumentException e) {
