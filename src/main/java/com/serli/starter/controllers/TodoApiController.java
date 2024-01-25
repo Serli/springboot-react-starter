@@ -30,7 +30,7 @@ public class TodoApiController {
         return request.getRequestURI();
     }
 
-    @GetMapping(path = "/api")
+    @GetMapping(path = "/doc")
     public String doc() {
         return "openapi";
     }
