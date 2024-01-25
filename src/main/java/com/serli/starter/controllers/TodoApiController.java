@@ -79,7 +79,7 @@ public class TodoApiController {
                         {"message": "Not found"}
                         """;
             } else {
-                Optional<NewTodo> newTodoOpt = NewTodo.fromJson(body);
+                Optional<Todo> newTodoOpt = Todo.fromJson(body);
                 if (newTodoOpt.isEmpty()) {
                     response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                     return """

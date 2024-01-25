@@ -52,4 +52,37 @@ public class Todo {
         return jsonNode;
     }
 
+    public static Optional<NewTodo> fromJson(String json) {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode jsonNode = objectMapper.readTree(json);
+            JsonNode idNode = jsonNode.get("id");
+            JsonNode titleNode = jsonNode.get("title");
+            JsonNode contentNode = jsonNode.get("content");
+            JsonNode createdAtNode = jsonNode.get("created_at");
+            JsonNode statusNode = jsonNode.get("status");
+            if (
+                titleNode == null || titleNode.isNull()
+                || contentNode == null || contentNode.isNull()
+                || idNode == null || idNode.isNull()
+                || createdAtNode == null || createdAtNode.isNull()
+                || statusNode == null || statusNode.isNull()
+            ) {
+                return Optional.empty();
+            } else {
+                return Optional.of(
+                        new Todo(
+                                UUID.fromString(idNode.asText()),
+                                titleNode.asText(),
+                                contentNode.asText(),
+                                TodoStatus.valueOf(statusNode.asText()),
+                                LocalDateTime.parse(createdAtNode.asText())
+                        )
+                );
+            }
+        } catch (JsonProcessingException e) {
+            return Optional.empty();
+        }
+    }
+
 }
