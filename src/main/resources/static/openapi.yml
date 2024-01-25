@@ -1,0 +1,153 @@
+openapi: 3.0.0
+
+info:
+  title: Todos API
+  description: API de type CRUD pour gérer une liste de Todos
+  version: 1.0.0
+
+servers:
+  - url: https://training-api.serliapps.dev
+    description: API pour les formations
+  - url: http://localhost:8080/api
+    description: Serveur local
+
+paths:
+  /v1/todos:
+    get:
+      summary: Liste des Todos
+      responses:
+        '200':
+          description: OK - Retourne les todos.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Todo'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    post:
+      summary: Création d'un Todo
+      requestBody:
+        description: Contenu du nouveau Todo
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewTodo'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Identifiant unique du Todo qui a été créé.
+                    example: "9886ad70-2f43-45dc-a6ad-88944f4e3ab8"
+  /v1/todos/{id}:
+    get:
+      summary: Détail d'un Todo
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: identifiant unique du Todo.
+          schema:
+            type: string
+            example: "db2c0563-c61f-44b8-bd53-9b262093919a"
+      responses:
+        '200':
+          description: OK - Retourne le détail du Todo.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Todo'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    delete:
+      summary: Suppression d'un Todo
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: identifiant unique du Todo.
+          schema:
+            type: string
+            example: "db2c0563-c61f-44b8-bd53-9b262093919a"
+      responses:
+        '200':
+          description: OK - Retourne le détail du Todo supprimé.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Todo'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+components:
+  schemas:
+    Todo:
+      description: Todo
+      type: object
+      properties:
+        id:
+          type: string
+          description: Identifiant unique du Todo.
+          example: "db2c0563-c61f-44b8-bd53-9b262093919a"
+        title:
+          type: string
+          description: Intitulé du Todo.
+          example: "Un truc à faire"
+        content:
+          type: string
+          description: Description du Todo.
+          example: "Le détail du truc à faire"
+        status:
+          type: string
+          enum:
+            - NEW
+            - IN_PROGRESS
+            - DONE
+          description: Statut du Todo
+          example: "IN_PROGRESS"
+        created_at:
+          type: string
+          format: date-time
+          description: Date de création du Todo
+          example: "2023-10-16T15:07:22.314055"
+      required:
+        - id
+        - title
+        - content
+        - status
+        - created_at
+    NewTodo:
+      description: Todo à créer
+      type: object
+      properties:
+        title:
+          type: string
+          description: Intitulé du Todo.
+          example: "Un truc à faire"
+        content:
+          type: string
+          description: Description du Todo.
+          example: "Le détail du truc à faire"
+      required:
+        - title
+        - content
+  responses:
+    BadRequest:
+      description: BadRequest - les paramètres d'appel ne sont pas corrects.
+    NotFound:
+      description: NotFound - ressource non trouvée.
+    InternalServerError:
+      description: InternalServerError - erreur technique imprévue.

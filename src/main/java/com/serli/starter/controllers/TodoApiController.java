@@ -30,6 +30,11 @@ public class TodoApiController {
         return request.getRequestURI();
     }
 
+    @GetMapping(path = "/api")
+    public String doc() {
+        return "openapi";
+    }
+
     @GetMapping(path = "/api/v1/todos", produces = "application/json; charset=UTF-8")
     @ResponseBody
     public String all() {
