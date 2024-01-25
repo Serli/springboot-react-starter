@@ -54,7 +54,7 @@ public class Todo {
         return jsonNode;
     }
 
-    public static Optional<NewTodo> fromJson(String json) {
+    public static Optional<Todo> fromJson(String json) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode jsonNode = objectMapper.readTree(json);
