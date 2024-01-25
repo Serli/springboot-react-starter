@@ -68,6 +68,29 @@ public class TodoApiController {
         }
     }
 
+    @PutMapping(path = "/api/v1/todos/{id}", consumes = "application/json; charset=UTF-8", produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public String update(@PathVariable String id, HttpServletResponse response) {
+        try {
+            Optional<Todo> todoOpt = todoRepository.findById(UUID.fromString(id));
+            if (todoOpt.isEmpty()) {
+                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                return """
+                        {"message": "Not found"}
+                        """;
+            } else {
+                todoRepository.updateStatus(todoOpt.get().getStatus());
+                return todoOpt.get().toJson().toString();
+            }
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return """
+                    {"message": "Bad request"}
+                    """;
+        }
+    }
+
     @PostMapping(path = "/api/v1/todos", consumes = "application/json; charset=UTF-8", produces = "application/json; charset=UTF-8")
     @ResponseBody
     public String create(@RequestBody String body, HttpServletResponse response) {
