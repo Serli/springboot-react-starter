@@ -73,7 +73,7 @@ public class TodoApiController {
     public String update(@PathVariable String id, HttpServletResponse response) {
         try {
             Optional<Todo> oldTodoOpt = todoRepository.findById(UUID.fromString(id));
-            if (todoOpt.isEmpty()) {
+            if (oldTodoOpt.isEmpty()) {
                 response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                 return """
                         {"message": "Not found"}
