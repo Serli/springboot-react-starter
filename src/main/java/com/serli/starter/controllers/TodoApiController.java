@@ -70,7 +70,7 @@ public class TodoApiController {
 
     @PutMapping(path = "/api/v1/todos/{id}", consumes = "application/json; charset=UTF-8", produces = "application/json; charset=UTF-8")
     @ResponseBody
-    public String update(@PathVariable String id, HttpServletResponse response) {
+    public String update(@PathVariable String id, @RequestBody String body, HttpServletResponse response) {
         try {
             Optional<Todo> oldTodoOpt = todoRepository.findById(UUID.fromString(id));
             if (oldTodoOpt.isEmpty()) {
@@ -87,7 +87,7 @@ public class TodoApiController {
                             """;
                 } else {
                     todoRepository.updateStatus(oldTodoOpt.get().id, newTodoOpt.get().status);
-                    return todoOpt.get().toJson().toString();
+                    return newTodoOpt.get().toJson().toString();
                 }
             }
         } catch (IllegalArgumentException e) {
