@@ -16,7 +16,7 @@ CREATE TABLE Todo
 -- Ce trigger est particulièrement utile en mode déployé sur Clever, vu que l'accès est public, pour éviter de se faire remplir la base.
 CREATE OR REPLACE FUNCTION limit_todos_size() RETURNS trigger AS $$
 BEGIN
-    DELETE FROM Todo WHERE id NOT IN (SELECT id FROM Todo ORDER BY created_at DESC LIMIT 10);
+    DELETE FROM Todo WHERE id NOT IN (SELECT id FROM Todo ORDER BY created_at DESC LIMIT 50);
 RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
